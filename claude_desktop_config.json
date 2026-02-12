@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "productivity-mcp": {
+      "command": "/Users/dhruvrawat/productivity-mcp-server/.venv/bin/python3",
+      "args": ["/Users/dhruvrawat/productivity-mcp-server/server.py"],
+      "env": {
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONPATH": "/Users/dhruvrawat/productivity-mcp-server"
+      }
+    }
+  }
+}
