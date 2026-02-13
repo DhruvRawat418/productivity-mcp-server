@@ -20,24 +20,25 @@ source .venv/bin/activate  # Mac/Linux
 # .venv\Scripts\activate  # Windows
 uv pip install -r requirements.txt
 cp .env.example .env
+```
 ### 2. Install Dependencies
-\`\`\`bash
+```bash
 uv pip install -r requirements.txt
-\`\`\`
+```
 
 ### 3. Configure Secrets
 Create `.env` file:
-\`\`\`
+```
 GMAIL_API_KEY=your_key
 GOOGLE_CALENDAR_API_KEY=your_key
 TASK_DB_PATH=./tasks.json
 LOG_LEVEL=INFO
-\`\`\`
+```
 
 ### 4. Run Server
-\`\`\`bash
+```bash
 python server.py
-\`\`\`
+```
 
 ### 5. Connect to Claude Desktop
 Update `~/.config/claude/claude_desktop_config.json` with the server path.
@@ -58,14 +59,14 @@ Draft and send professional emails.
 - Input validation and sanitization
 
 **Example**:
-\`\`\`
+```
 draft_email(
   recipient="hiring@company.com",
   subject="Internship Application",
   body="I'm interested in...",
   send=False
 )
-\`\`\`
+```
 
 ### `create_task`
 Create tasks with deadlines (rate limited).
@@ -81,13 +82,13 @@ Create tasks with deadlines (rate limited).
 - Input length limits
 
 **Example**:
-\`\`\`
+```
 create_task(
   title="Review resume",
   deadline="2026-02-15",
   priority="high"
 )
-\`\`\`
+```
 
 ## Resources
 
@@ -98,6 +99,40 @@ Lists all tasks from the database.
 
 ### `professional_email`
 Template for drafting professional emails.
+
 **Arguments**:
 - `recipient_name`: Who you're writing to
 - `purpose`: What you're requesting
+
+## Best Practices Implemented
+
+### 1. Input Sanitization
+Prevents injection attacks (email header injection, command injection).
+
+**Exploit Test**:
+```bash
+python -m security.sanitizer
+# ✓ PASSED: Email injection blocked
+```
+
+### 2. Rate Limiting
+Prevents abuse by limiting tool calls.
+
+**Exploit Test**:
+```bash
+python -m security.rate_limiter
+# ✓ PASSED: Rate limit enforced (11th call blocked)
+```
+
+## Architecture
+
+See `ARCHITECTURE.md` for detailed component diagram.
+
+## Demo
+
+To demo the server:
+
+1. Start the server: `python3 server.py`
+2. Open Claude Desktop
+3. Test tools in the sidebar
+4. Show security exploit tests
